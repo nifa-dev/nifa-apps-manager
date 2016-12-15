@@ -138,7 +138,7 @@ class ApplicationsController extends AppController
         return $this->redirect(['action' => 'index']);
     }*/
 
-    public function makeRequest($applicationSystemDesignator = null) {
+    public function makeRequest($applicationSystemDesignator = "contest") {
 
         $application = null;
         if($applicationSystemDesignator) {
