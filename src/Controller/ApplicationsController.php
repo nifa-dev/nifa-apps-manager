@@ -140,22 +140,19 @@ class ApplicationsController extends AppController
 
     public function makeRequest($applicationSystemDesignator = "contest") {
 
-        $application = null;
-        if($applicationSystemDesignator) {
-            $application = $this->getSystemApp($applicationSystemDesignator);
-        }
-
         if($url = $this->request->data('url')) {
+
             $data = $this->request->data;
+            $request = ['url' => $url, 'data' => $data];
             unset($data['url']);
-            $result = $this->Applications->makeNifaHttpRequest($url, $data, $application, true);
+            $result = $this->Applications->makeNifaHttpRequest($url, $data, $applicationSystemDesignator, true);
 
 
         } else {
             $result = ['status' => 'fail', 'error' => 'The url was not supplied', 'data' => $this->request->data];
         }
 
-        $this->set(compact('result'));
+        $this->set(compact('result', 'request'));
         $this->set('_serialize', ['result']);
 
     }
