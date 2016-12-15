@@ -1,0 +1,21 @@
+
+{
+    "name": "nifa-dev/nifa-apps-manager",
+    "description": "Helper Classes for NIFA Applications",
+    "type": "cakephp-plugin",
+    "keywords": ["cakephp"],
+    "homepage": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jared Testa",
+            "homepage": "",
+            "role": "Author"
+        }
+    ],
+    "autoload": {
+    "psr-4": {
+        "NifaAppsManager\\": "src"
+    }
+}
+}
