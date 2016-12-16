@@ -112,7 +112,7 @@ class ApplicationsTable extends Table
         }
 
         //if client information set, try to contact the client
-        if($entity->client_public_key) && ($entity->client_private_key) && ($entity->client_url) {
+        if(($entity->client_public_key) && ($entity->client_private_key) && ($entity->client_url)) {
             
             $http = new Client();
 
