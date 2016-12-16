@@ -16,8 +16,33 @@ class ApplicationsController extends AppController
 
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['makeRequest']);
+        $this->Auth->allow(['makeRequest', 'token']);
+
     }
+
+
+    public function token()
+    {
+        Log::write('debug', $this->request->data());
+
+        $user = $this->Auth->identify();
+        if (!$user) {
+            throw new UnauthorizedException('Invalid username or password');
+        }
+
+        $this->set([
+            'success' => true,
+            'data' => [
+                'token' => JWT::encode([
+                    'sub' => $user['id'],
+                    'exp' =>  time() + 604800
+                ],
+                    Security::salt())
+            ],
+            '_serialize' => ['success', 'data']
+        ]);
+    }
+
 
     /**
      * Index method
