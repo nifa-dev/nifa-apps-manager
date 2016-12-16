@@ -31,7 +31,7 @@ class Application extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true
+        '*' => false
     ];
 
     protected function _setHostSecretKeyHashed($host_secret_key_hashed) {
