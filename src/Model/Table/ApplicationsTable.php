@@ -113,7 +113,7 @@ class ApplicationsTable extends Table
 
         //if client information set, try to contact the client
         if(($entity->client_public_key) && ($entity->client_private_key) && ($entity->client_url)) {
-            
+            Log::write('debug', 'Client information was set, lets go');
             $http = new Client();
 
             $credentials = ['public_key' => $entity->client_public_key, 'secret_key_hashed' => $entity->client_secret_key];

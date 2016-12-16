@@ -33,7 +33,7 @@ class Application extends Entity
     protected $_accessible = [
         '*' => false,
         'client_public_key' => true,
-        'client_private_key' => true,
+        'client_secret_key' => true,
         'client_url' => true,
         'name' => true,
         'system_designator' => true
