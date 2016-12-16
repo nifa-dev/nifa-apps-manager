@@ -34,7 +34,9 @@ class Application extends Entity
         '*' => false,
         'client_public_key' => true,
         'client_private_key' => true,
-        'client_url' => true
+        'client_url' => true,
+        'name' => true,
+        'system_designator' => true
     ];
 
     protected function _setHostSecretKeyHashed($host_secret_key_hashed) {
