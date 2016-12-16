@@ -164,8 +164,10 @@ class ApplicationsTable extends Table
         //turn off field guarding
         $entity->accessible('host_public_key', true);
         $entity->accessible('host_secret_key', true);
+        $entity->accessible('host_secret_key_hashed', true);
         $entity->set('host_public_key', Text::uuid());
         $entity->set('host_secret_key', Text::uuid());
+        $entity->set('host_secret_key_hashed', $entity->host_secret_key);
 
         return $this->save($entity);
     }
