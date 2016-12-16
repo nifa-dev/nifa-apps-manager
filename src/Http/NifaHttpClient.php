@@ -128,7 +128,7 @@ class NifaHttpClient extends Client {
 
         //make initial request
         $http = new Client();
-        $response = $http->get($this->_application->client_url . $urlAddition, $data, $options);
+        $response = $http->post($this->_application->client_url . $urlAddition, $data, $options);
         $body = $response->json;
         //if initial response is 500, theres a good chance its just expired token (message:"Expired token"):
         if(($response->code == 500) && (strtolower($body['message']) == "expired token")) {
