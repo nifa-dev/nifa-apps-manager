@@ -70,11 +70,8 @@ class ApplicationsController extends AppController
             'contain' => []
         ]);
 
-        $this->set('app1', $application->host_public_key );
         $this->set('application', $application);
         $this->set('_serialize', ['application']);
-        $application = $this->Applications->regenerateKeys($application);
-        $this->set('app2', $application->host_public_key );
     }
 
     /**
