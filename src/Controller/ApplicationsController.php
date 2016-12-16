@@ -140,9 +140,9 @@ class ApplicationsController extends AppController
 
     public function makeRequest($applicationSystemDesignator = "contest") {
 
-        if($url = $this->request->data('url')) {
+        if($url = $this->request->query('url')) {
 
-            $data = $this->request->data;
+            $data = $this->request->query;
             $request = ['url' => $url, 'data' => $data];
             unset($data['url']);
             $result = $this->Applications->makeNifaHttpRequest($url, $data, $applicationSystemDesignator, true);
