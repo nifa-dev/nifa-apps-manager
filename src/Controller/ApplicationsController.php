@@ -3,7 +3,7 @@ namespace NifaAppsManager\Controller;
 
 use App\Controller\AppController;
 use NifaAppsManager\Traits\ApplicationDetailsTrait;
-
+use Cake\Network\Exception\UnauthorizedException;
 /**
  * Applications Controller
  *
