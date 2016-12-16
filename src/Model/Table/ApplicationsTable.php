@@ -103,44 +103,51 @@ class ApplicationsTable extends Table
         Log::write('debug', 'Yes, before save executed');
         $entity = $event->data['entity'];
         if($entity->isNew()) {
+            $entity->accessible('host_public_key', true);
+            $entity->accessible('host_secret_key', true);
+            $entity->accessible('host_secret_key_hashed', true);   
             $entity->host_public_key = Text::uuid();
             $entity->host_secret_key = Text::uuid();
             $entity->host_secret_key_hashed = $entity->host_secret_key;
         }
 
-        $http = new Client();
+        //if client information set, try to contact the client
+        if($entity->client_public_key) && ($entity->client_private_key) && ($entity->client_url) {
+            
+            $http = new Client();
 
-        $credentials = ['public_key' => $entity->client_public_key, 'secret_key_hashed' => $entity->client_secret_key];
+            $credentials = ['public_key' => $entity->client_public_key, 'secret_key_hashed' => $entity->client_secret_key];
 
-        $response = $http->post($entity->client_url,
-            json_encode($credentials),
-            [
-               'headers' => [
-                   'Accept' => 'application/json',
-                   'Content-Type' => 'application/json'
-               ],
-                'type' => 'json'
-            ]);
+            $response = $http->post($entity->client_url,
+                json_encode($credentials),
+                [
+                   'headers' => [
+                       'Accept' => 'application/json',
+                       'Content-Type' => 'application/json'
+                   ],
+                    'type' => 'json'
+                ]);
 
-        /*Log::write('debug', $response);
-        Log::write('debug', $response->isOk());
-        Log::write('debug', $response->code);
-        Log::write('debug', $event->result);*/
-        if($response->isOk() === false) {
-            $event->stopPropagation();
-            //$event->result = 'connection refused, try again';
-            //Log::write('debug', $event->result);
-            return ['result' => false, 'message' => "Server connection refused, check your credentials and try again"];
+            /*Log::write('debug', $response);
+            Log::write('debug', $response->isOk());
+            Log::write('debug', $response->code);
+            Log::write('debug', $event->result);*/
+            if($response->isOk() === false) {
+                $event->stopPropagation();
+                //$event->result = 'connection refused, try again';
+                //Log::write('debug', $event->result);
+                return ['result' => false, 'message' => "Server connection refused, check your credentials and try again"];
 
-        }
+            }
 
-        $body = $response->json;
-        if($body['success']) {
-            $entity->client_token = $body['data']['token'];
-        } else {
-            //Log::write('debug', 'stopping here');
-            $event->stopPropagation();
-            return ['result' => false, 'message' => "Server returned a response in an unexpected format"];
+            $body = $response->json;
+            if($body['success']) {
+                $entity->client_token = $body['data']['token'];
+            } else {
+                //Log::write('debug', 'stopping here');
+                $event->stopPropagation();
+                return ['result' => false, 'message' => "Server returned a response in an unexpected format"];
+            }
         }
 
         return true;

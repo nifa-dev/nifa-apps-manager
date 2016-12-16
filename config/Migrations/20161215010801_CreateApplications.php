@@ -22,17 +22,17 @@ class CreateApplications extends AbstractMigration
             ->addColumn('client_public_key', 'string', [
                 'default' => null,
                 'limit' => 255,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('client_secret_key', 'string', [
                 'default' => null,
                 'limit' => 255,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('client_url', 'string', [
                 'default' => null,
                 'limit' => 255,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('client_token', 'string', [
                 'default' => null,

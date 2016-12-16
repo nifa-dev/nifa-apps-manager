@@ -31,7 +31,10 @@ class Application extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => false
+        '*' => false,
+        'client_public_key' => true,
+        'client_private_key' => true,
+        'client_url' => true
     ];
 
     protected function _setHostSecretKeyHashed($host_secret_key_hashed) {
