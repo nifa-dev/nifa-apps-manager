@@ -23,7 +23,7 @@ class ApplicationsController extends AppController
 
     public function token()
     {
-        Log::write('debug', $this->request->data());
+        
 
         $user = $this->Auth->identify();
         if (!$user) {
