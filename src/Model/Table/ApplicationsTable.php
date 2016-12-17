@@ -88,6 +88,19 @@ class ApplicationsTable extends Table
         return $validator;
     }
 
+    public function validationCommandLineCreation(Validator $validator) {
+
+        $validator
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
+
+        $validator
+            ->requirePresence('system_designator', 'create')
+            ->notEmpty('system_designator');
+
+        return $validator;
+    }
+
     public function makeNifaHttpRequest($urlAddition, $data, $application = null, $auth = false) {
         $http = new NifaHttpClient($application);
         $response = $http->get($urlAddition, $data,
