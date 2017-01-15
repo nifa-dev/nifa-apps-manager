@@ -64,7 +64,7 @@ class NifaHttpClient extends Client {
             Log::write('debug', 'Request returned 500 and Expired Token, trying to renew token');
 
             //in order to make the renewal request we'll submit a request to the base url with the username and pass word as post data
-            $credentials = ['public_key' => $this->_application->client_public_key, 'secret_key_hashed' => $this->_application->client_secret_key];
+            $credentials = ['host_public_key' => $this->_application->client_public_key, 'host_secret_key_hashed' => $this->_application->client_secret_key];
             $renewalResponse = $http->post($this->_application->client_url,
                 json_encode($credentials),
                 [
