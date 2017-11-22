@@ -55,7 +55,7 @@ class CreateApplications extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('inactive', 'boolean', [
-                'default' => null,
+                'default' => false,
                 'limit' => null,
                 'null' => false,
             ])
@@ -67,12 +67,12 @@ class CreateApplications extends AbstractMigration
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('modified', 'datetime', [
                 'default' => null,
                 'limit' => null,
-                'null' => false,
+                'null' => true,
             ])
             ->create();
     }
